@@ -1144,10 +1144,11 @@
                 $.map(entries, function (entry) {
                     return that._handleFileTreeEntry(entry, path);
                 })
-            ).then(function (entries) {
+            // ).then(function (entries) { // w ten sposób dostajemy tylko pierwszy plik i w dodatku nie jako tablica, dlatego drag&drop się popsuł
+            ).then(function () { 
                 return Array.prototype.concat.apply(
                     [],
-                    entries
+                    arguments // dostajemy wszystkie pliki zwrócone przez $.map ... jako tablica, działa podobnie jak rest operator
                 );
             });
         },
@@ -1206,10 +1207,10 @@
             return $.when.apply(
                 $,
                 $.map(fileInput, this._getSingleFileInputFiles)
-            ).then(function (files) {
+            ).then(function () {
                 return Array.prototype.concat.apply(
                     [],
-                    files
+                    arguments
                 );
             });
         },
